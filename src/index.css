@@ -1,13 +1,85 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  font-family: "Montserrat", sans-serif;
+  font-size: 62.5%;
+  --primary-blue: #407bff;
+  --primary-green: #19dcb9;
+  --ambient-green: #eaf9f8;
+  --secondary-purple: #ab5fde;
+  --reset-red: #e66e6e;
+  --aqua-blue: #5ee1e6;
+  --dark-purple: #605ee6;
+  --analyze-orange: #f4966e;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scroll-padding-top: 10px;
+}
+
+/* Inicio estilos scroll */
+.my-scroll::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.my-scroll::-webkit-scrollbar:vertical {
+  width: 12px;
+}
+
+.my-scroll::-webkit-scrollbar-button:increment,
+.contenedor::-webkit-scrollbar-button {
+  display: none;
+}
+
+.my-scroll::-webkit-scrollbar:horizontal {
+  height: 12px;
+}
+
+.my-scroll::-webkit-scrollbar-thumb {
+  background-color: #b4afaf;
+  /*border-radius: 20px;*/
+  border: 2px solid #f1f2f3;
+}
+
+.my-scroll::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+/* Final estilos scroll */
+
+body {
+  background-color: var(--ambient-green);
+}
+
+.bg-pblue {
+  background-color: var(--primary-blue);
+}
+
+.bg-pgreen {
+  background-color: var(--primary-green);
+}
+
+.bg-abgreen {
+  background-color: var(--ambient-green);
+}
+
+.bg-spurple {
+  background-color: var(--secondary-purple);
+}
+
+.bg-rsred {
+  background-color: var(--reset-red);
+}
+
+.bg-aqblue {
+  background-color: var(--aqua-blue);
+}
+
+.bg-dkpurple {
+  background-color: var(--dark-purple);
+}
+
+.bg-anzorange {
+  background-color: var(--analyze-orange);
 }
