@@ -1,4 +1,4 @@
-export const ruleLoad = (line, pos, programID, setMachineState) => {
+export const ruleAdd = (line, pos, programID, setMachineState) => {
   const varName = line[1];
 
   if (!varName) {
@@ -6,7 +6,7 @@ export const ruleLoad = (line, pos, programID, setMachineState) => {
       st.errors.push({
         programID,
         line: pos + 1,
-        text: 'Se hace una declaracion "cargue" pero no se especifica el valor a cargar',
+        text: 'Se hace una declaracion "sume" pero no se especifica la variable requerida',
       });
     });
   }
@@ -26,11 +26,20 @@ export const ruleLoad = (line, pos, programID, setMachineState) => {
       st.errors.push({
         programID,
         line: pos + 1,
-        text: `La variable ${varName} indicada en la declaracion de carga, no existe en el programa`,
+        text: `La variable ${varName} indicada en la declaracion de suma, no existe en el programa`,
+      });
+    } else if (
+      st.programs_temp[programID].variables[varName].type !== "I" &&
+      st.programs_temp[programID].variables[varName].type !== "R"
+    ) {
+      st.errors.push({
+        programID,
+        line: pos + 1,
+        text: `La variable ${varName} indicada en la declaracion de suma es de un tipo no valido para realizar la operacion sumar`,
       });
     } else {
       st.programs_temp[programID].block.push({
-        line_type: "load_declaration",
+        line_type: "add_declaration",
         var_name: varName,
       });
     }

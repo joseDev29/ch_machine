@@ -1,4 +1,4 @@
-export const ruleLoad = (line, pos, programID, setMachineState) => {
+export const rulePrint = (line, pos, programID, setMachineState) => {
   const varName = line[1];
 
   if (!varName) {
@@ -6,7 +6,7 @@ export const ruleLoad = (line, pos, programID, setMachineState) => {
       st.errors.push({
         programID,
         line: pos + 1,
-        text: 'Se hace una declaracion "cargue" pero no se especifica el valor a cargar',
+        text: 'Se hace una declaracion "imprima" pero no se especifica la variable requerida',
       });
     });
   }
@@ -22,15 +22,18 @@ export const ruleLoad = (line, pos, programID, setMachineState) => {
   }
 
   return setMachineState((st) => {
-    if (!st.programs_temp[programID].variables[varName]) {
+    if (
+      !st.programs_temp[programID].variables[varName] &&
+      varName !== "acumulador"
+    ) {
       st.errors.push({
         programID,
         line: pos + 1,
-        text: `La variable ${varName} indicada en la declaracion de carga, no existe en el programa`,
+        text: `La variable ${varName} indicada en la declaracion de imprimir, no existe en el programa`,
       });
     } else {
       st.programs_temp[programID].block.push({
-        line_type: "load_declaration",
+        line_type: "print_declaration",
         var_name: varName,
       });
     }
