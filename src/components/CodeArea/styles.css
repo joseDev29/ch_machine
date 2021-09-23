@@ -22,13 +22,11 @@
 
 .code-area__btn:hover {
   cursor: pointer;
-  background-color: #0ead91;
 }
 
 .code-area__btn:focus {
   outline: none;
   /* background-color: #1850cc; */
-  background-color: #bfbfbf;
 }
 
 .code-area__input-file-hidden {

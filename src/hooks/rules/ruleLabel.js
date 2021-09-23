@@ -52,6 +52,7 @@ export const ruleLabel = (
     };
 
     st.programs_temp[programID].block.push({
+      line_text: `${line.join(" ")}`,
       line_type: "label_declaration",
       label_name: labelName,
       label_value: labelValue,

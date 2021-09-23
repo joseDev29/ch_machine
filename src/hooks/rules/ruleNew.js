@@ -150,6 +150,7 @@ export const ruleNew = (line, pos, programID, setMachineState) => {
     };
 
     st.programs_temp[programID].block.push({
+      line_text: `${line.join(" ")}`,
       line_type: "var_declaration",
       var_name: varName,
       var_type: varType,

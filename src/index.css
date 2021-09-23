@@ -9,6 +9,8 @@
   --aqua-blue: #5ee1e6;
   --dark-purple: #605ee6;
   --analyze-orange: #f4966e;
+  --disabled-gray: #bfbfbf;
+  --state-rose: #eb597b;
 }
 
 * {
@@ -52,6 +54,7 @@ body {
   background-color: var(--ambient-green);
 }
 
+/* Backgrounds */
 .bg-pblue {
   background-color: var(--primary-blue);
 }
@@ -82,4 +85,17 @@ body {
 
 .bg-anzorange {
   background-color: var(--analyze-orange);
+}
+
+.bg-dsgray {
+  background-color: var(--disabled-gray);
+}
+
+.bg-strose {
+  background-color: var(--state-rose);
+}
+
+/* Borders */
+.bd-pgreen {
+  border-color: var(--primary-green);
 }

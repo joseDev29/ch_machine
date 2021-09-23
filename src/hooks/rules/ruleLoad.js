@@ -8,6 +8,8 @@ export const ruleLoad = (line, pos, programID, setMachineState) => {
         line: pos + 1,
         text: 'Se hace una declaracion "cargue" pero no se especifica el valor a cargar',
       });
+
+      return st;
     });
   }
 
@@ -18,6 +20,8 @@ export const ruleLoad = (line, pos, programID, setMachineState) => {
         line: pos + 1,
         text: `Sintaxis no reconocida ${line[2]}`,
       });
+
+      return st;
     });
   }
 
@@ -30,6 +34,7 @@ export const ruleLoad = (line, pos, programID, setMachineState) => {
       });
     } else {
       st.programs_temp[programID].block.push({
+        line_text: `${line.join(" ")}`,
         line_type: "load_declaration",
         var_name: varName,
       });

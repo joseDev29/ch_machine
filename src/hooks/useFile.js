@@ -4,7 +4,8 @@ import { Subject } from "rxjs";
 import { AppContext } from "../context/AppContext";
 
 export const useFile = () => {
-  const { generalState, changeGeneralState } = useContext(AppContext);
+  const { generalState, changeGeneralState, changeMachineState } =
+    useContext(AppContext);
 
   const inputFile = useRef(null);
 
@@ -27,6 +28,12 @@ export const useFile = () => {
           filename: "Ningun archivo seleccionado",
           rawCode: "",
         });
+
+        changeMachineState({
+          programs_temp: {},
+          code: null,
+          errors: [],
+        });
         return;
       }
 
@@ -37,6 +44,11 @@ export const useFile = () => {
         filename: "Ningun archivo seleccionado",
         rawCode: "",
       });
+      changeMachineState({
+        programs_temp: {},
+        code: null,
+        errors: [],
+      });
       alert(`Error al leer el archivo: ${error.message}`);
     }
   };
@@ -44,18 +56,42 @@ export const useFile = () => {
   //Verifica la extension del archivo
   const verifyFile = (filePath) => {
     if (!filePath) {
-      return changeGeneralState({ filename: "Ningun archivo seleccionado" });
+      changeGeneralState({
+        filename: "Ningun archivo seleccionado",
+        rawCode: "",
+      });
+
+      changeMachineState({
+        programs_temp: {},
+        code: null,
+        errors: [],
+      });
+
+      return;
     }
 
     const fileExtension = filePath.substr(filePath.length - 3, 3);
 
     if (fileExtension !== ".ch") {
+      changeGeneralState({
+        filename: "Ningun archivo seleccionado",
+        rawCode: "",
+      });
+
+      changeMachineState({
+        programs_temp: {},
+        code: null,
+        errors: [],
+      });
+
       throw new Error("Extension no compatible");
     }
 
     let filename = filePath.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
 
     filename = filename.slice(0, filename.length - 3);
+
+    localStorage.setItem("filename", filename);
 
     return changeGeneralState({ filename });
   };
@@ -73,6 +109,17 @@ export const useFile = () => {
     };
 
     reader.onerror = () => {
+      changeGeneralState({
+        filename: "Ningun archivo seleccionado",
+        rawCode: "",
+      });
+
+      changeMachineState({
+        programs_temp: {},
+        code: null,
+        errors: [],
+      });
+
       throw new Error("Error de lectura, archivo no valido");
     };
   };

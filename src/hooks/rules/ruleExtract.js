@@ -8,6 +8,8 @@ export const ruleExtract = () => {
         line: pos + 1,
         text: 'Se hace una declaracion "extraiga" pero no se especifica la variable requerida',
       });
+
+      return st;
     });
   }
 
@@ -18,6 +20,8 @@ export const ruleExtract = () => {
         line: pos + 1,
         text: `Sintaxis no reconocida ${line[2]}`,
       });
+
+      return st;
     });
   }
 
@@ -36,6 +40,7 @@ export const ruleExtract = () => {
       });
     } else {
       st.programs_temp[programID].block.push({
+        line_text: `${line.join(" ")}`,
         line_type: "extract_declaration",
         var_name: varName,
       });

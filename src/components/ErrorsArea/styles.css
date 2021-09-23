@@ -1,0 +1,59 @@
+.errors-area__main {
+  width: 90%;
+  max-height: 98vh;
+  margin: 0 auto;
+  overflow: scroll;
+}
+
+.errors-area__head {
+  width: max-content;
+  height: 20px;
+  display: flex;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--reset-red);
+}
+
+.errors-area__head-prog {
+  width: 100px;
+  height: 100%;
+  text-align: left;
+}
+
+.errors-area__head-pos {
+  width: 50px;
+  height: 100%;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.errors-area__head-text {
+  height: 100%;
+  padding-right: 16px;
+  text-align: left;
+}
+
+.errors-area__item {
+  width: max-content;
+  height: 20px;
+  display: flex;
+}
+
+.errors-area__item-prog {
+  width: 100px;
+  height: 100%;
+  text-align: left;
+}
+
+.errors-area__item-pos {
+  width: 50px;
+  height: 100%;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.errors-area__item-text {
+  height: 100%;
+  padding-right: 16px;
+  text-align: left;
+}

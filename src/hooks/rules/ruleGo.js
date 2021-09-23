@@ -1,12 +1,12 @@
-export const ruleConcatenate = (line, pos, programID, setMachineState) => {
-  const varName = line[1];
+export const ruleGo = (line, pos, programID, setMachineState) => {
+  const labelName = line[1];
 
-  if (!varName) {
+  if (!labelName) {
     return setMachineState((st) => {
       st.errors.push({
         programID,
         line: pos + 1,
-        text: 'Se hace una declaracion "concatenar" pero no se especifica la variable requerida',
+        text: 'Se hace una declaracion "vaya" pero no se especifica la etiqueta requerida',
       });
 
       return st;
@@ -26,17 +26,17 @@ export const ruleConcatenate = (line, pos, programID, setMachineState) => {
   }
 
   return setMachineState((st) => {
-    if (!st.programs_temp[programID].variables[varName]) {
+    if (!st.programs_temp[programID].labels[labelName]) {
       st.errors.push({
         programID,
         line: pos + 1,
-        text: `La variable ${varName} indicada en la declaracion de concatenar, no existe en el programa`,
+        text: `La etiqueta ${labelName} indicada en la declaracion vaya, no existe en el programa`,
       });
     } else {
       st.programs_temp[programID].block.push({
         line_text: `${line.join(" ")}`,
-        line_type: "concatenate_declaration",
-        var_name: varName,
+        line_type: "go_declaration",
+        label_name: labelName,
       });
     }
 

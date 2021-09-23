@@ -5,7 +5,11 @@ import { useVerifyCode } from "../../hooks/useVerifyCode";
 import "./styles.css";
 
 export const CodeArea = () => {
-  const { generalState, changeGeneralState } = useContext(AppContext);
+  const {
+    generalState,
+    changeGeneralState,
+    buttonsState: { loadCodeBtnActive, downloadCodeBtnActive, codeSheetActive },
+  } = useContext(AppContext);
 
   const {
     inputFile,
@@ -20,12 +24,13 @@ export const CodeArea = () => {
   useEffect(() => {
     readFileEvent.current.subscribe((rawCode) => {
       changeGeneralState({ rawCode });
-      orderCode(rawCode);
+      orderCode(rawCode, generalState.filename);
     });
   }, [readFileEvent]);
 
   const onChangeInputFilename = (ev) => {
     changeGeneralState({ filename: ev.target.value });
+    localStorage.setItem("filename", ev.target.value);
   };
 
   const onChangeTextArea = (ev) => {
@@ -43,9 +48,11 @@ export const CodeArea = () => {
       />
 
       <button
-        className="code-area__btn bg-pgreen"
+        className={`code-area__btn ${
+          loadCodeBtnActive ? "bg-pgreen" : "bg-dsgray"
+        }`}
+        disabled={!loadCodeBtnActive}
         onClick={onLoadCode}
-        disabled={false}
       >
         Cargar codigo
       </button>
@@ -56,7 +63,7 @@ export const CodeArea = () => {
           type="text"
           spellCheck="false"
           value={generalState.filename}
-          disabled={false}
+          disabled={!codeSheetActive}
           onChange={onChangeInputFilename}
         />
         <div className="code-area__file-path-ext">
@@ -71,9 +78,16 @@ export const CodeArea = () => {
         spellCheck="false"
         value={generalState.rawCode}
         onChange={onChangeTextArea}
+        disabled={!codeSheetActive}
       />
 
-      <button className="code-area__btn bg-spurple" onClick={downloadCode}>
+      <button
+        className={`code-area__btn ${
+          downloadCodeBtnActive ? "bg-spurple" : "bg-dsgray"
+        }`}
+        disabled={!downloadCodeBtnActive}
+        onClick={downloadCode}
+      >
         Descargar codigo
       </button>
     </div>

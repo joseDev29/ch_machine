@@ -9,6 +9,8 @@ export const ruleNOT = (line, pos, programID, setMachineState) => {
         line: pos + 1,
         text: 'Se hace una declaracion "NO" pero no se especifican las 2 variable requeridas',
       });
+
+      return st;
     });
   }
 
@@ -19,6 +21,8 @@ export const ruleNOT = (line, pos, programID, setMachineState) => {
         line: pos + 1,
         text: `Sintaxis no reconocida ${line[3]}`,
       });
+
+      return st;
     });
   }
 
@@ -43,6 +47,7 @@ export const ruleNOT = (line, pos, programID, setMachineState) => {
       });
     } else {
       st.programs_temp[programID].block.push({
+        line_text: `${line.join(" ")}`,
         line_type: "not_declaration",
         var1_name: var1Name,
         var2_name: var2Name,

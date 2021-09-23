@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+
+//Rules
 import { ruleAdd } from "./rules/ruleAdd";
 import { ruleDivision } from "./rules/ruleDivision";
 import { ruleLabel } from "./rules/ruleLabel";
@@ -17,13 +19,21 @@ import { ruleOR } from "./rules/ruleOR";
 import { ruleNOT } from "./rules/ruleNOT";
 import { ruleShow } from "./rules/ruleShow";
 import { rulePrint } from "./rules/rulePrint";
+import { ruleGo } from "./rules/ruleGo";
+import { ruleGoIf } from "./rules/ruleGoIf";
+import { ruleReturn } from "./rules/ruleReturn";
 
 export const useVerifyCode = () => {
-  const { changeMachineState, setMachineState, getGeneralState } =
-    useContext(AppContext);
+  const { changeMachineState, setMachineState } = useContext(AppContext);
 
   //Ordena el codigo en una matriz de lineas x palabras
-  const orderCode = (rawCode) => {
+  const orderCode = (rawCode, filename) => {
+    changeMachineState({
+      code: null,
+      errors: [],
+      programs_temp: {},
+    });
+
     let code = rawCode.trim().split("\n");
 
     code = code.map((line) => {
@@ -35,17 +45,19 @@ export const useVerifyCode = () => {
 
     code = code.filter((line) => line.length > 0);
 
+    if (code.length === 0) return;
+
     changeMachineState({ code });
 
-    analyzeCode(code);
+    analyzeCode(code, filename);
   };
 
-  const analyzeCode = (code) => {
+  const analyzeCode = (code, filename) => {
     try {
       const programID = Math.floor(Math.random() * (9999 - 999)) + 999;
       console.log("Program ID: ", programID);
       const programLength = code.length;
-      const programName = getGeneralState().filename;
+      const programName = localStorage.getItem("filename");
 
       setMachineState((st) => {
         st.programs_temp[programID] = {
@@ -59,6 +71,7 @@ export const useVerifyCode = () => {
         return st;
       });
 
+      //Verificacion de variables y etiquetas
       code.forEach((line, pos) => {
         //new
         if (line[0] === "nueva") {
@@ -67,6 +80,18 @@ export const useVerifyCode = () => {
         //label
         else if (line[0] === "etiqueta") {
           ruleLabel(line, pos, programID, programLength, setMachineState);
+        }
+      });
+
+      //Verificacion del resto de lineas de codigo
+      code.forEach((line, pos) => {
+        //new
+        if (line[0] === "nueva") {
+          return;
+        }
+        //label
+        else if (line[0] === "etiqueta") {
+          return;
         }
         //load
         else if (line[0] === "cargue") {
@@ -136,12 +161,24 @@ export const useVerifyCode = () => {
         else if (line[0] === "imprima") {
           rulePrint(line, pos, programID, setMachineState);
         }
+        //go
+        else if (line[0] === "vaya") {
+          ruleGo(line, pos, programID, setMachineState);
+        }
+        //go if
+        else if (line[0] === "vayasi") {
+          ruleGoIf(line, pos, programID, setMachineState);
+        }
+        //return
+        else if (line[0] === "retorne") {
+          ruleReturn(line, pos, programID, setMachineState, programLength);
+        }
         //others
         else {
           setMachineState((st) => {
             st.errors.push({
               programID,
-              line: pos,
+              line: pos + 1,
               text: `La line iniciada con "${line[0]}" no fue reconocida como sintaxis valida del sistema`,
             });
 
@@ -149,9 +186,27 @@ export const useVerifyCode = () => {
           });
         }
       });
+
+      setMachineState((st) => {
+        if (st.errors.length === 0) {
+          st.memory = [...st.memory, ...st.programs_temp[programID].block];
+          alert(
+            "El programa fue analizado y cargado a la memoria exitosamente"
+          );
+        } else {
+          alert(
+            "Hay errores en su codigo, verifique y realice nuevamente un analisis de codigo"
+          );
+        }
+
+        return st;
+      });
+
+      changeMachineState({});
     } catch (error) {
       alert(
-        "Error al verificar el codgio, verifique su codigo y ejecute nuevamente el analisis"
+        "Error al verificar el codgio, verifique su codigo y ejecute nuevamente el analisis" +
+          error
       );
     }
   };

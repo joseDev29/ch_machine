@@ -8,6 +8,8 @@ export const ruleDelete = (line, pos, programID, setMachineState) => {
         line: pos + 1,
         text: 'Se hace una declaracion "eliminar" pero no se especifica la variable requerida',
       });
+
+      return st;
     });
   }
 
@@ -18,6 +20,8 @@ export const ruleDelete = (line, pos, programID, setMachineState) => {
         line: pos + 1,
         text: `Sintaxis no reconocida ${line[2]}`,
       });
+
+      return st;
     });
   }
 
@@ -30,6 +34,7 @@ export const ruleDelete = (line, pos, programID, setMachineState) => {
       });
     } else {
       st.programs_temp[programID].block.push({
+        line_text: `${line.join(" ")}`,
         line_type: "delete_declaration",
         var_name: varName,
       });

@@ -1,0 +1,63 @@
+.memtab-main {
+  width: 90%;
+  max-height: 98vh;
+  margin: 0 auto;
+  overflow: scroll;
+}
+
+.memtab-head {
+  width: 100%;
+  height: 25px;
+  display: flex;
+  border: 1px solid #000;
+  background-color: #19dcb9;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.memtab-head__pos {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #000;
+}
+
+.memtab-head__text {
+  width: 85%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  justify-content: flex-start;
+}
+
+.memtab-item {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  border-color: #000;
+}
+
+.memtab-item__pos {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #000;
+  color: #fff;
+}
+
+.memtab-item__text {
+  width: 85%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 4px;
+  background-color: #fff;
+}

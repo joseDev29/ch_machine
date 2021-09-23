@@ -7,6 +7,13 @@
   align-items: center;
 }
 
+.mchp__mhc-data-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .mchp__mhc-data {
   width: 90%;
   display: flex;
@@ -30,7 +37,6 @@
 .mchp__km-item-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--primary-green);
 }
 
 .km-item__input-main {
@@ -42,7 +48,7 @@
   width: 100px;
   height: 100%;
   text-align: center;
-  border: 2px solid var(--primary-green);
+  border: 2px solid;
   border-radius: 20%;
   font-size: 2.5rem;
   color: var(--primary-green);
@@ -86,11 +92,11 @@
 
 .row-btns-item-top {
   border-top: none;
-  border-bottom: 15px solid var(--primary-green);
+  border-bottom: 15px solid;
 }
 
 .row-btns-item-bottom {
-  border-top: 15px solid var(--primary-green);
+  border-top: 15px solid;
   border-bottom: none;
 }
 
@@ -116,6 +122,31 @@
 
 .mch-btns-item:hover {
   cursor: pointer;
+}
+
+.mchp__mch-state {
+  width: 90%;
+  height: 50px;
+  margin-top: 8px;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid var(--state-rose);
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.mchp__state-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--state-rose);
+}
+
+.mchp__state-text {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
 }
 
 .mchp__process {

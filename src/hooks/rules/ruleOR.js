@@ -10,6 +10,8 @@ export const ruleOR = (line, pos, programID, setMachineState) => {
         line: pos + 1,
         text: 'Se hace una declaracion "O" pero no se especifican las 3 variable requeridas',
       });
+
+      return st;
     });
   }
 
@@ -20,6 +22,8 @@ export const ruleOR = (line, pos, programID, setMachineState) => {
         line: pos + 1,
         text: `Sintaxis no reconocida ${line[4]}`,
       });
+
+      return st;
     });
   }
 
@@ -46,6 +50,7 @@ export const ruleOR = (line, pos, programID, setMachineState) => {
       });
     } else {
       st.programs_temp[programID].block.push({
+        line_text: `${line.join(" ")}`,
         line_type: "or_declaration",
         var1_name: var1Name,
         var2_name: var2Name,
