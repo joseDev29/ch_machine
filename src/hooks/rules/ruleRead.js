@@ -37,6 +37,7 @@ export const ruleRead = (line, pos, programID, setMachineState) => {
         line_text: `${line.join(" ")}`,
         line_type: "read_declaration",
         var_name: varName,
+        program_id: programID,
       });
     }
 

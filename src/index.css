@@ -1,6 +1,4 @@
 :root {
-  font-family: "Montserrat", sans-serif;
-  font-size: 62.5%;
   --primary-blue: #407bff;
   --primary-green: #19dcb9;
   --ambient-green: #eaf9f8;
@@ -11,6 +9,7 @@
   --analyze-orange: #f4966e;
   --disabled-gray: #bfbfbf;
   --state-rose: #eb597b;
+  --next-yellow: #f5e38c;
 }
 
 * {
@@ -19,6 +18,11 @@
   box-sizing: border-box;
   scrollbar-width: thin;
   scroll-padding-top: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 /* Inicio estilos scroll */
@@ -51,7 +55,7 @@
 /* Final estilos scroll */
 
 body {
-  background-color: var(--ambient-green);
+  background-color: #fff;
 }
 
 /* Backgrounds */
@@ -93,6 +97,10 @@ body {
 
 .bg-strose {
   background-color: var(--state-rose);
+}
+
+.bg-nxyellow {
+  background-color: var(--next-yellow);
 }
 
 /* Borders */

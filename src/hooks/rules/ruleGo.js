@@ -37,6 +37,7 @@ export const ruleGo = (line, pos, programID, setMachineState) => {
         line_text: `${line.join(" ")}`,
         line_type: "go_declaration",
         label_name: labelName,
+        program_id: programID,
       });
     }
 

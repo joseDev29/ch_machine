@@ -38,6 +38,7 @@ export const ruleReturn = (
         line_type: "return_declaration",
         var_name: null,
         value: null,
+        program_id: programID,
       });
 
       return st;
@@ -51,6 +52,7 @@ export const ruleReturn = (
         line_type: "return_declaration",
         var_name: null,
         value: value,
+        program_id: programID,
       });
 
       return st;
@@ -66,6 +68,7 @@ export const ruleReturn = (
           line_type: "return_declaration",
           var_name: value,
           value: null,
+          program_id: programID,
         });
       } else {
         st.errors.push({

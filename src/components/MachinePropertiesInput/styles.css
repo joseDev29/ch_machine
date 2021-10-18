@@ -1,0 +1,81 @@
+.mpi-main {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mpi-item {
+  width: 47%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mpi-item-title {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.mpi-item-input {
+  display: flex;
+}
+
+.mpi-item-input-value {
+  width: 65px;
+  height: 100%;
+  text-align: center;
+  border-radius: 8px;
+  border-width: 2px;
+  border-style: solid;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.mpi-item-input-value::-webkit-inner-spin-button,
+.mpi-item-input-value::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mpi-item-input-value {
+  -moz-appearance: textfield;
+}
+
+.mpi-item-input-value:focus {
+  outline: none;
+  border-width: 3.5px;
+}
+
+.mpi-item-btns {
+  width: 30px;
+  height: 100%;
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.mpi-item-btn {
+  width: 0;
+  height: 0;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.mpi-item-btn:hover {
+  cursor: pointer;
+}
+
+.row-btn-top {
+  border-top: none;
+  border-bottom: 15px solid;
+}
+
+.row-btn-bottom {
+  border-top: 15px solid;
+  border-bottom: none;
+}

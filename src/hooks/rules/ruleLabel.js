@@ -57,6 +57,7 @@ export const ruleLabel = (
       label_name: labelName,
       label_value: labelValue,
       memory_position: null,
+      program_id: programID,
     });
 
     return st;

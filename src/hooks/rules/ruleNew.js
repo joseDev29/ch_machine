@@ -157,6 +157,7 @@ export const ruleNew = (line, pos, programID, setMachineState) => {
       var_value: varValue,
       program_position: st.programs_temp[programID].length,
       memory_position: null,
+      program_id: programID,
     });
 
     return st;

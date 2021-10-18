@@ -1,0 +1,19 @@
+.ma-main {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.ma-btn {
+  width: 48%;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.ma-btn:hover {
+  cursor: pointer;
+}

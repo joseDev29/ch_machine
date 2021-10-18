@@ -37,6 +37,7 @@ export const ruleStore = (line, pos, programID, setMachineState) => {
         line_text: `${line.join(" ")}`,
         line_type: "store_declaration",
         var_name: varName,
+        program_id: programID,
       });
     }
 

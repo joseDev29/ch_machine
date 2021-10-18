@@ -46,6 +46,7 @@ export const ruleModule = (line, pos, programID, setMachineState) => {
         line_text: `${line.join(" ")}`,
         line_type: "module_declaration",
         var_name: varName,
+        program_id: programID,
       });
     }
 

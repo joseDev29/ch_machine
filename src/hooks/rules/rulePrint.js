@@ -40,6 +40,7 @@ export const rulePrint = (line, pos, programID, setMachineState) => {
         line_text: `${line.join(" ")}`,
         line_type: "print_declaration",
         var_name: varName,
+        program_id: programID,
       });
     }
 

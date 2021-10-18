@@ -37,6 +37,7 @@ export const ruleDelete = (line, pos, programID, setMachineState) => {
         line_text: `${line.join(" ")}`,
         line_type: "delete_declaration",
         var_name: varName,
+        program_id: programID,
       });
     }
 

@@ -1,0 +1,22 @@
+.pa-main {
+  width: 100%;
+  height: 88px;
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 8px;
+  row-gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pa-btn {
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.pa-btn:hover {
+  cursor: pointer;
+}

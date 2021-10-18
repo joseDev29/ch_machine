@@ -8,7 +8,7 @@ const initialGeneralState = {
 const initialMachineState = {
   state: "NO INICIADA",
   code: null,
-  kernel: 109,
+  kernel: 25,
   memory_count: 150,
   memory_max_count: 10100,
   last_memory_pos: 0,
@@ -17,18 +17,25 @@ const initialMachineState = {
   errors: [],
   programs: {},
   programs_temp: {},
+  running_program: null,
+  running_pos: 0,
+  stepByStep: false,
 };
 
 const initialButtonsState = {
-  codeSheetActive: false,
-  loadCodeBtnActive: false,
-  downloadCodeBtnActive: false,
-  runBtnActive: false,
-  playPauseBtnActive: false,
-  analyzeCodeBtnActive: false,
   initiMachineBtnActive: true,
   resetMachineBtnActive: true,
   kernelMemoryBtnsActive: true,
+
+  codeSheetActive: false,
+  loadCodeBtnActive: false,
+  downloadCodeBtnActive: false,
+  analyzeCodeBtnActive: false,
+
+  runNotPauseBtnActive: false,
+  runStepByStepBtnActive: false,
+  resetMemoryPosBtnActive: false,
+  nextInstructionBtnActive: false,
 };
 
 export const AppContext = createContext();

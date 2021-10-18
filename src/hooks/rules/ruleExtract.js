@@ -43,6 +43,7 @@ export const ruleExtract = () => {
         line_text: `${line.join(" ")}`,
         line_type: "extract_declaration",
         var_name: varName,
+        program_id: programID,
       });
     }
 

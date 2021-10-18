@@ -42,6 +42,7 @@ export const ruleGoIf = (line, pos, programID, setMachineState) => {
         line_type: "goif_declaration",
         label1_name: label1Name,
         label2_name: label2Name,
+        program_id: programID,
       });
     }
 

@@ -46,6 +46,7 @@ export const ruleExponentiation = (line, pos, programID, setMachineState) => {
         line_text: `${line.join(" ")}`,
         line_type: "exponent_declaration",
         var_name: varName,
+        program_id: programID,
       });
     }
 

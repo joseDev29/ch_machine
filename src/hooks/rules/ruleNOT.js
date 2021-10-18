@@ -51,6 +51,7 @@ export const ruleNOT = (line, pos, programID, setMachineState) => {
         line_type: "not_declaration",
         var1_name: var1Name,
         var2_name: var2Name,
+        program_id: programID,
       });
     }
 

@@ -46,6 +46,7 @@ export const ruleAdd = (line, pos, programID, setMachineState) => {
         line_text: `${line.join(" ")}`,
         line_type: "add_declaration",
         var_name: varName,
+        program_id: programID,
       });
     }
 

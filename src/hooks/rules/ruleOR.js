@@ -55,6 +55,7 @@ export const ruleOR = (line, pos, programID, setMachineState) => {
         var1_name: var1Name,
         var2_name: var2Name,
         var3_name: var3Name,
+        program_id: programID,
       });
     }
 

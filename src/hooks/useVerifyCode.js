@@ -22,9 +22,11 @@ import { rulePrint } from "./rules/rulePrint";
 import { ruleGo } from "./rules/ruleGo";
 import { ruleGoIf } from "./rules/ruleGoIf";
 import { ruleReturn } from "./rules/ruleReturn";
+import { Subject } from "rxjs";
 
 export const useVerifyCode = () => {
-  const { changeMachineState, setMachineState } = useContext(AppContext);
+  const { changeMachineState, setMachineState, changeButtonsState } =
+    useContext(AppContext);
 
   //Ordena el codigo en una matriz de lineas x palabras
   const orderCode = (rawCode, filename) => {
@@ -49,10 +51,10 @@ export const useVerifyCode = () => {
 
     changeMachineState({ code });
 
-    analyzeCode(code, filename);
+    analyzeCode(code);
   };
 
-  const analyzeCode = (code, filename) => {
+  const analyzeCode = (code) => {
     try {
       const programID = Math.floor(Math.random() * (9999 - 999)) + 999;
       console.log("Program ID: ", programID);
@@ -187,9 +189,58 @@ export const useVerifyCode = () => {
         }
       });
 
+      let runActive = new Subject();
+
+      runActive.subscribe((val) =>
+        changeButtonsState({
+          runNotPauseBtnActive: val | false,
+          runStepByStepBtnActive: val | false,
+        })
+      );
+
       setMachineState((st) => {
         if (st.errors.length === 0) {
+          if (
+            st.programs_temp[programID].length >
+            st.memory_count - st.last_memory_pos
+          ) {
+            alert(
+              "El tamaño del programa excede la capacidad de memoria disponible"
+            );
+            return st;
+          }
+
           st.memory = [...st.memory, ...st.programs_temp[programID].block];
+
+          st.programs[programID] = Object.assign(
+            {},
+            st.programs_temp[programID]
+          );
+
+          st.programs[programID].init_pos = st.last_memory_pos + 1;
+
+          st.programs[programID].last_pos =
+            st.programs[programID].init_pos + st.programs[programID].length - 1;
+
+          st.last_memory_pos += st.programs[programID].length;
+
+          st.programs_temp = {};
+
+          for (let var_name of Object.keys(st.programs[programID].variables)) {
+            st.programs[programID].variables[var_name].memory_position =
+              st.last_memory_pos -
+              st.programs[programID].length +
+              st.programs[programID].variables[var_name].program_position;
+
+            st.memory[
+              st.programs[programID].variables[var_name].memory_position
+            ] = {
+              line_type: "var_value",
+              value: st.programs[programID].variables[var_name].value,
+              program_id: programID,
+            };
+          }
+          runActive.next(true);
           alert(
             "El programa fue analizado y cargado a la memoria exitosamente"
           );

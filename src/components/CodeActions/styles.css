@@ -1,0 +1,25 @@
+.ca-main {
+  width: 100%;
+  height: 136px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ca-btn {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.ca-btn:hover {
+  cursor: pointer;
+}
+
+.ca-input-file-hidden {
+  display: none;
+}
