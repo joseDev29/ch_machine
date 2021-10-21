@@ -1,4 +1,4 @@
-export const ruleExtract = () => {
+export const ruleExtract = (line, pos, programID, setMachineState) => {
   const varName = line[1];
 
   if (!varName) {

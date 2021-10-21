@@ -1,0 +1,44 @@
+.lf-main {
+  width: 100%;
+  height: 180px;
+  margin-top: 12px;
+  padding: 4px;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 2px solid var(--state-rose);
+}
+
+.lf-head,
+.lf-item {
+  width: 100%;
+  display: flex;
+}
+
+.lf-head > div {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--state-rose);
+}
+
+.lf-item > div {
+  margin-top: 4px;
+}
+
+.lf-pos,
+.lf-name,
+.lf-pg {
+  display: flex;
+  justify-content: center;
+}
+
+.lf-pos {
+  width: 20%;
+}
+
+.lf-name {
+  width: 40%;
+}
+
+.lf-pg {
+  width: 40%;
+}

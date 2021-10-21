@@ -22,11 +22,16 @@ import { rulePrint } from "./rules/rulePrint";
 import { ruleGo } from "./rules/ruleGo";
 import { ruleGoIf } from "./rules/ruleGoIf";
 import { ruleReturn } from "./rules/ruleReturn";
-import { Subject } from "rxjs";
+import { ruleDelete } from "./rules/ruleDelete";
+import { ruleExtract } from "./rules/ruleExtract";
 
 export const useVerifyCode = () => {
-  const { changeMachineState, setMachineState, changeButtonsState } =
-    useContext(AppContext);
+  const {
+    changeMachineState,
+    setMachineState,
+    changeButtonsState,
+    setButtonsState,
+  } = useContext(AppContext);
 
   //Ordena el codigo en una matriz de lineas x palabras
   const orderCode = (rawCode, filename) => {
@@ -75,12 +80,12 @@ export const useVerifyCode = () => {
 
       //Verificacion de variables y etiquetas
       code.forEach((line, pos) => {
-        //new
-        if (line[0] === "nueva") {
-          ruleNew(line, pos, programID, setMachineState);
-        }
+        // //new
+        // if (line[0] === "nueva") {
+        //   ruleNew(line, pos, programID, setMachineState);
+        // }
         //label
-        else if (line[0] === "etiqueta") {
+        if (line[0] === "etiqueta") {
           ruleLabel(line, pos, programID, programLength, setMachineState);
         }
       });
@@ -89,11 +94,24 @@ export const useVerifyCode = () => {
       code.forEach((line, pos) => {
         //new
         if (line[0] === "nueva") {
-          return;
+          ruleNew(line, pos, programID, setMachineState);
         }
         //label
         else if (line[0] === "etiqueta") {
-          return;
+          setMachineState((st) => {
+            if (st.programs_temp[programID].labels[line[1]]) {
+              st.programs_temp[programID].block.push({
+                line_text: `${line.join(" ")}`,
+                line_type: "label_declaration",
+                label_name: line[0],
+                label_value: line[2],
+                memory_position: null,
+                program_id: programID,
+              });
+            }
+
+            return st;
+          });
         }
         //load
         else if (line[0] === "cargue") {
@@ -137,11 +155,11 @@ export const useVerifyCode = () => {
         }
         //delete
         else if (line[0] === "elimine") {
-          ruleConcatenate(line, pos, programID, setMachineState);
+          ruleDelete(line, pos, programID, setMachineState);
         }
         //extract
         else if (line[0] === "extraiga") {
-          ruleConcatenate(line, pos, programID, setMachineState);
+          ruleExtract(line, pos, programID, setMachineState);
         }
         //AND
         else if (line[0] === "Y") {
@@ -189,19 +207,12 @@ export const useVerifyCode = () => {
         }
       });
 
-      let runActive = new Subject();
-
-      runActive.subscribe((val) =>
-        changeButtonsState({
-          runNotPauseBtnActive: val | false,
-          runStepByStepBtnActive: val | false,
-        })
-      );
+      let runActive = false;
 
       setMachineState((st) => {
         if (st.errors.length === 0) {
           if (
-            st.programs_temp[programID].length >
+            st.programs_temp[programID].block.length >
             st.memory_count - st.last_memory_pos
           ) {
             alert(
@@ -239,8 +250,29 @@ export const useVerifyCode = () => {
               value: st.programs[programID].variables[var_name].value,
               program_id: programID,
             };
+
+            st.all_variables.push({
+              var_name,
+              programID,
+              pos: st.programs[programID].variables[var_name].memory_position,
+            });
           }
-          runActive.next(true);
+
+          for (let label_name of Object.keys(st.programs[programID].labels)) {
+            st.programs[programID].labels[label_name].memoryPos =
+              st.programs[programID].init_pos -
+              1 +
+              st.programs[programID].labels[label_name].programPos;
+
+            st.all_labels.push({
+              label_name,
+              programID,
+              pos: st.programs[programID].labels[label_name].memoryPos,
+            });
+          }
+
+          runActive = true;
+
           alert(
             "El programa fue analizado y cargado a la memoria exitosamente"
           );
@@ -254,6 +286,15 @@ export const useVerifyCode = () => {
       });
 
       changeMachineState({});
+
+      setTimeout(() => {
+        if (runActive) {
+          changeButtonsState({
+            runNotPauseBtnActive: true,
+            runStepByStepBtnActive: true,
+          });
+        }
+      }, 500);
     } catch (error) {
       alert(
         "Error al verificar el codgio, verifique su codigo y ejecute nuevamente el analisis" +

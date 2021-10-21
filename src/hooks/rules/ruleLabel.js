@@ -51,15 +51,6 @@ export const ruleLabel = (
       programPos: labelValue,
     };
 
-    st.programs_temp[programID].block.push({
-      line_text: `${line.join(" ")}`,
-      line_type: "label_declaration",
-      label_name: labelName,
-      label_value: labelValue,
-      memory_position: null,
-      program_id: programID,
-    });
-
     return st;
   });
 };

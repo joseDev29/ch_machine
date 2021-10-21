@@ -31,7 +31,7 @@ html {
 }
 
 .my-scroll::-webkit-scrollbar:vertical {
-  width: 12px;
+  width: 10px;
 }
 
 .my-scroll::-webkit-scrollbar-button:increment,
@@ -40,12 +40,12 @@ html {
 }
 
 .my-scroll::-webkit-scrollbar:horizontal {
-  height: 12px;
+  height: 10px;
 }
 
 .my-scroll::-webkit-scrollbar-thumb {
   background-color: #b4afaf;
-  /*border-radius: 20px;*/
+  border-radius: 20px;
   border: 2px solid #f1f2f3;
 }
 

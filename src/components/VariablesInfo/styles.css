@@ -1,0 +1,44 @@
+.vf-main {
+  width: 100%;
+  height: 180px;
+  margin-top: 12px;
+  padding: 4px;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 2px solid var(--primary-green);
+}
+
+.vf-head,
+.vf-item {
+  width: 100%;
+  display: flex;
+}
+
+.vf-head > div {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-green);
+}
+
+.vf-item > div {
+  margin-top: 4px;
+}
+
+.vf-pos,
+.vf-name,
+.vf-pg {
+  display: flex;
+  justify-content: center;
+}
+
+.vf-pos {
+  width: 20%;
+}
+
+.vf-name {
+  width: 40%;
+}
+
+.vf-pg {
+  width: 40%;
+}

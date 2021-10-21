@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
+import { Subject } from "rxjs";
 
 const initialGeneralState = {
   filename: "Sin nombre",
@@ -20,6 +21,10 @@ const initialMachineState = {
   running_program: null,
   running_pos: 0,
   stepByStep: false,
+  all_variables: [],
+  all_labels: [],
+  printer: "",
+  monitor: "",
 };
 
 const initialButtonsState = {
@@ -46,6 +51,8 @@ export const AppProvider = ({ children }) => {
   const [buttonsState, setButtonsState] = useState(initialButtonsState);
 
   const [machineState, setMachineState] = useState(initialMachineState);
+
+  const readInputEvent = useRef(new Subject());
 
   const changeGeneralState = (value) => {
     setGeneralState((prevState) => {
@@ -86,7 +93,26 @@ export const AppProvider = ({ children }) => {
 
   const resetMachineState = () => {
     setMachineState((st) => {
-      st = initialMachineState;
+      st = {
+        state: "NO INICIADA",
+        code: null,
+        kernel: 25,
+        memory_count: 150,
+        memory_max_count: 10100,
+        last_memory_pos: 0,
+        accumulator: 0,
+        memory: [0],
+        errors: [],
+        programs: {},
+        programs_temp: {},
+        running_program: null,
+        running_pos: 0,
+        stepByStep: false,
+        all_variables: [],
+        all_labels: [],
+        printer: "",
+        monitor: "",
+      };
       return st;
     });
   };
@@ -117,10 +143,12 @@ export const AppProvider = ({ children }) => {
         generalState,
         buttonsState,
         machineState,
+        readInputEvent,
         changeGeneralState,
         changeButtonsState,
         changeMachineState,
         setMachineState,
+        setButtonsState,
         getGeneralState,
         resetMachineState,
         resetButtonsState,
