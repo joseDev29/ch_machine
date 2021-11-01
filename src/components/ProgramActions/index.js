@@ -14,6 +14,7 @@ export const ProgramActions = () => {
     },
     machineState: { running_pos },
     changeButtonsState,
+    setMachineState,
   } = useContext(AppContext);
 
   const { runProgram } = useProgramsExecution();
@@ -23,8 +24,31 @@ export const ProgramActions = () => {
       resetMemoryPosBtnActive: true,
       runStepByStepBtnActive: false,
     });
+
     runProgram(running_pos + 1);
   };
+
+  const onRunStepByStep = () => {
+    setMachineState((st) => {
+      st.stepByStep = true;
+      return st;
+    });
+    changeButtonsState({
+      resetMemoryPosBtnActive: true,
+      runStepByStepBtnActive: false,
+      runNotPauseBtnActive: false,
+    });
+    runProgram(running_pos + 1);
+  };
+
+  const onNextInstruction = () => {
+    changeButtonsState({
+      nextInstructionBtnActive: false,
+    });
+    runProgram(running_pos + 1);
+  };
+
+  const onResetMemoryPosition = () => {};
 
   return (
     <div className="pa-main">
@@ -41,6 +65,7 @@ export const ProgramActions = () => {
           runStepByStepBtnActive ? "bg-dkpurple" : "bg-dsgray"
         }`}
         disabled={!runStepByStepBtnActive}
+        onClick={onRunStepByStep}
       >
         Ejecutar paso a paso
       </button>
@@ -50,6 +75,7 @@ export const ProgramActions = () => {
           resetMemoryPosBtnActive ? "bg-strose" : "bg-dsgray"
         }`}
         disabled={!resetMemoryPosBtnActive}
+        onClick={onResetMemoryPosition}
       >
         Reiniciar posicion de memoria
       </button>
@@ -59,6 +85,7 @@ export const ProgramActions = () => {
           nextInstructionBtnActive ? "bg-nxyellow" : "bg-dsgray"
         }`}
         disabled={!nextInstructionBtnActive}
+        onClick={onNextInstruction}
       >
         Siguiente instruccion
       </button>

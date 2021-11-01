@@ -19,9 +19,18 @@ export const ReadOperationZone = () => {
 
   const onReadValue = () => {
     setMachineState((st) => {
+      const var_type =
+        st.programs[state.program_id].variables[state.var_name].type;
+
+      let var_value = inputRef.current.value;
+
+      if (var_type === "I" || var_type === "R" || var_type === "L") {
+        var_value = Number(var_value);
+      }
+
       st.memory[
         st.programs[state.program_id].variables[state.var_name].memory_position
-      ].value = inputRef.current.value;
+      ].value = var_value;
 
       return st;
     });
@@ -33,6 +42,10 @@ export const ReadOperationZone = () => {
 
       return st;
     });
+
+    setTimeout(() => {
+      inputRef.current.value = "";
+    }, 5);
 
     changeMachineState({});
 

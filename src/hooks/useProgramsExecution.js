@@ -24,7 +24,7 @@ import { subtract } from "./operations/subtract";
 
 export const useProgramsExecution = () => {
   const {
-    machineState: { memory, stepByStep, last_memory_pos },
+    machineState: { memory, last_memory_pos },
     changeButtonsState,
     setMachineState,
     changeMachineState,
@@ -173,8 +173,11 @@ export const useProgramsExecution = () => {
       subtract(memory[running_pos], setMachineState, changeMachineState);
     }
 
+    let stepByStep;
+
     setMachineState((st) => {
       st.running_pos += 1;
+      stepByStep = st.stepByStep;
       return st;
     });
 
@@ -182,13 +185,15 @@ export const useProgramsExecution = () => {
       return;
     }
 
-    if (stepByStep) {
-      return changeButtonsState({
-        nextInstructionBtnActive: true,
-      });
-    } else {
-      return runProgram(running_pos + 1);
-    }
+    setTimeout(() => {
+      if (stepByStep) {
+        return changeButtonsState({
+          nextInstructionBtnActive: true,
+        });
+      } else {
+        return runProgram(running_pos + 1);
+      }
+    }, 5);
   };
 
   return {
